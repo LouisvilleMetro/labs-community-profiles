@@ -2,6 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   didRender() {
-    $(this.element).foundation();
+    // $(this.element).foundation();
   },
 });
