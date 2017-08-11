@@ -4,10 +4,13 @@ import mapboxgl from 'mapbox-gl'; // eslint-disable-line
 import isCdLayer from '../utils/is-cd-layer';
 
 export default Ember.Controller.extend({
+  fastboot: Ember.inject.service(),
   mapState: Ember.inject.service(),
   lat: 40.7071266,
   lng: -74,
   zoom: 9.2,
+
+  isFastBoot: Ember.computed.reads('fastboot.isFastBoot'),
 
   cdSource: Ember.computed('model', function () {
     return {

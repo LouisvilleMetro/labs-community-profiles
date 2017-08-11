@@ -24,23 +24,27 @@
 
 <div id="main" class="grid-x">
   <div class="cell large-4" id="cd-chooser">
-    {{#mapbox-gl id='map' initOptions=(hash style='mapbox://styles/mapbox/light-v9' zoom=zoom center=(array lng lat)) mapLoaded=(action 'handleMapLoad') as |map|}}
-      {{#map.source sourceId='cds' source=cdSource as |source|}}
-        {{source.layer layer=cdFillLayer}}
-        {{source.layer layer=cdLineLayer}}
-        {{source.layer layer=cdLabelLayer}}
-      {{/map.source}}
-
-      {{map.call 'fitBounds' mapState.bounds}}
-      {{map.on 'click' (action 'handleClick')}}
-      {{map.on 'mousemove' (action 'handleMouseover')}}
-      {{map.on 'mouseout' (action 'handleMouseleave')}}
-      {{#if mapState.currentlySelected}}
-        {{#map.source sourceId='currentlySelected' source=cdSelectedSource as |source|}}
-          {{source.layer layer=cdSelectedLayer}}
+    {{#if isFastBoot}}
+      FastBoot!
+    {{else}}
+      {{#mapbox-gl id='map' initOptions=(hash style='mapbox://styles/mapbox/light-v9' zoom=zoom center=(array lng lat)) mapLoaded=(action 'handleMapLoad') as |map|}}
+        {{#map.source sourceId='cds' source=cdSource as |source|}}
+          {{source.layer layer=cdFillLayer}}
+          {{source.layer layer=cdLineLayer}}
+          {{source.layer layer=cdLabelLayer}}
         {{/map.source}}
-      {{/if}}
-    {{/mapbox-gl}}
+
+        {{map.call 'fitBounds' mapState.bounds}}
+        {{map.on 'click' (action 'handleClick')}}
+        {{map.on 'mousemove' (action 'handleMouseover')}}
+        {{map.on 'mouseout' (action 'handleMouseleave')}}
+        {{#if mapState.currentlySelected}}
+          {{#map.source sourceId='currentlySelected' source=cdSelectedSource as |source|}}
+            {{source.layer layer=cdSelectedLayer}}
+          {{/map.source}}
+        {{/if}}
+      {{/mapbox-gl}}
+    {{/if}}
     <div id="cd-search" class="hide-for-print">
       {{#power-select
         options=options

@@ -1,3 +1,5 @@
+import fetch from 'fetch';
+
 const cartoUser = 'cpp';
 const cartoDomain = 'cartoprod.capitalplanning.nyc';
 
@@ -13,7 +15,6 @@ const carto = {
   SQL(query, type = 'json') {
     const cleanedQuery = query.replace('\n', '');
     const url = buildSqlUrl(cleanedQuery, type);
-
     return fetch(url)
       .then((response) => {
         if(response.ok) {
