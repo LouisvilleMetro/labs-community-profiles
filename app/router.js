@@ -10,6 +10,7 @@ Router.map(function () {
   // eslint-disable-line
   this.route('profile', { path: '/:boro/:cd' }, () => {});
   this.route('not-found', { path: '/*path' });
+  this.route('table');
 });
 
 export default Router;
