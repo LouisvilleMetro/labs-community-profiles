@@ -64,6 +64,7 @@
     "eslint-plugin-react": "^7.1.0",
     "foundation-sites": "^6.4.1",
     "leaflet": "^1.1.0",
+    "liquid-fire": "^0.28.0",
     "loader.js": "^4.2.3"
   },
   "engines": {
