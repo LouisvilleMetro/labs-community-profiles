@@ -3,8 +3,14 @@ import { Promise } from 'rsvp';
 import ResizeAware from 'ember-resize/mixins/resize-aware'; // eslint-disable-line
 import numeral from 'numeral';
 import d3 from 'd3';
+import InViewportMixin from 'ember-in-viewport';
 
-export default Ember.Component.extend(ResizeAware, {
+export default Ember.Component.extend(ResizeAware, InViewportMixin, {
+  didEnterViewport() {
+    const dataPromise = this.get('data');
+    const el = this.$();
+    Promise.resolve(dataPromise).then(this.drawChart.bind(this, el));
+  },
   init() {
     this._super(...arguments);
 
@@ -258,9 +264,7 @@ export default Ember.Component.extend(ResizeAware, {
     });
   },
 
-  didRender() {
-    const dataPromise = this.get('data');
-    const el = this.$();
-    Promise.resolve(dataPromise).then(this.drawChart.bind(this, el));
-  },
+  // didRender() {
+
+  // },
 });

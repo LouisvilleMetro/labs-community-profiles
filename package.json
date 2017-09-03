@@ -45,6 +45,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-fetch": "^3.3.0",
     "ember-font-awesome": "^3.0.5",
+    "ember-in-viewport": "^2.1.1",
     "ember-leaflet": "^3.0.12",
     "ember-load-initializers": "^1.0.0",
     "ember-mapbox-gl": "^0.4.0",

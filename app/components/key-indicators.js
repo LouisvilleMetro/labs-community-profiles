@@ -3,7 +3,6 @@ import carto from '../utils/carto';
 import { task } from 'ember-concurrency';
 
 export default Ember.Component.extend({
-  shouldRender: false,
   borocd: '',
   indicators: ['borocd'],
   coalescedIndicators: Ember.A([]),
