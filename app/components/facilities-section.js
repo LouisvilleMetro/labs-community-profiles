@@ -1,6 +1,7 @@
 import Ember from 'ember'; // eslint-disable-line
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line
 import geoViewport from 'npm:@mapbox/geo-viewport'; // eslint-disable-line
+import InViewportMixin from 'ember-in-viewport';
 
 import carto from '../utils/carto';
 
@@ -18,7 +19,7 @@ const SQL = `
   SELECT the_geom_webmercator, facname, facdomain, uid FROM facdb_facilities;
 `;
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(InViewportMixin, {
   borocd: '',
 
   initOptions: Ember.computed('mapState', function() {

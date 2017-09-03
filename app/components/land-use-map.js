@@ -1,7 +1,8 @@
 import Ember from 'ember'; // eslint-disable-line
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line
+import InViewportMixin from 'ember-in-viewport';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(InViewportMixin, {
   initOptions: {
     style: 'mapbox://styles/mapbox/light-v9',
     zoom: 9,

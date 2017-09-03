@@ -1,6 +1,7 @@
 import Ember from 'ember'; // eslint-disable-line
 import FacilitiesSection from '../components/facilities-section';
 import carto from '../utils/carto';
+import InViewportMixin from 'ember-in-viewport';
 
 const SQL = 'SELECT *, LEFT(zonedist, 2) as primaryzone FROM support_zoning_zd';
 const zdConfig = {
@@ -71,7 +72,7 @@ const zdLabelConfig = {
   minzoom: 14,
 };
 
-export default FacilitiesSection.extend({
+export default FacilitiesSection.extend(InViewportMixin, {
   vectorSource: Ember.computed('zoningTemplate', function () {
     return carto.getVectorTileTemplate([SQL])
       .then(zoningTemplate => ({
