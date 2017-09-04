@@ -3,6 +3,11 @@
 
 module.exports = function(environment) {
   let ENV = {
+    viewportConfig: {
+      viewportTolerance: {
+        top: 80,
+      },
+    },
     metricsAdapters: [
       {
         name: 'GoogleAnalytics',

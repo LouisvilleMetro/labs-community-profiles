@@ -11,6 +11,11 @@ export default Ember.Component.extend(ResizeAware, InViewportMixin, {
     const el = this.$();
     Promise.resolve(dataPromise).then(this.drawChart.bind(this, el));
   },
+  didUpdateAttrs() {
+    const dataPromise = this.get('data');
+    const el = this.$();
+    Promise.resolve(dataPromise).then(this.drawChart.bind(this, el));
+  },
   init() {
     this._super(...arguments);
 
