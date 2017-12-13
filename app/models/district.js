@@ -3,13 +3,13 @@ import DS from 'ember-data'; // eslint-disable-line
 import neighborhoodsCrosswalk from '../utils/nabesCrosswalk';
 import bbox from 'npm:@turf/bbox' // eslint-disable-line
 import centroid from 'npm:@turf/centroid'; // eslint-disable-line
-import numeral from 'npm:numeral';
+import numeral from 'npm:numeral'; // eslint-disable-line
 
 const acronymCrosswalk = {
-  'Bronx': 'BX',
-  'Brooklyn': 'BK',
-  'Manhattan': 'MN',
-  'Queens': 'QN',
+  Bronx: 'BX',
+  Brooklyn: 'BK',
+  Manhattan: 'MN',
+  Queens: 'QN',
   'Staten Island': 'SI',
 };
 
@@ -37,7 +37,7 @@ export default DS.Model.extend({
   healthProfileLink: Ember.computed('boro', function() {
     const boroAcronymLowerCase = this.get('boroAcronymLowerCase');
     let cd = this.get('cd');
-    if(boroAcronymLowerCase === 'si' || boroAcronymLowerCase === 'qn') {
+    if (boroAcronymLowerCase === 'si' || boroAcronymLowerCase === 'qn') {
       cd = numeral(cd).format('00');
     }
     return `https://www1.nyc.gov/assets/doh/downloads/pdf/data/2015chp-${boroAcronymLowerCase}${cd}.pdf`;

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from 'ember'; // eslint-disable-line
 import numeral from 'numeral';
 
 export function numeralFormat(params) {

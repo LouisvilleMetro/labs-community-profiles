@@ -69,8 +69,8 @@ export default Ember.Route.extend(ScrollToTop, {
     });
   },
 
-  zoningData: task(function * (borocd, controller) {
-    return githubraw('zoning', borocd)
+  zoningData: task(function* (borocd, controller) { // eslint-disable-line
+    return githubraw('zoning', borocd);
   }).restartable(),
 
   actions: {
@@ -78,7 +78,6 @@ export default Ember.Route.extend(ScrollToTop, {
       this.transitionTo('/not-found');
     },
     didTransition() {
-      console.log('transition');
     },
   },
 });

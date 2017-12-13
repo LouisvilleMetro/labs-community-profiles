@@ -1,6 +1,5 @@
-import Ember from 'ember';
+import Ember from 'ember'; // eslint-disable-line
 import carto from '../utils/carto';
-import { task } from 'ember-concurrency';
 
 export default Ember.Component.extend({
   shouldRender: false,
@@ -10,7 +9,7 @@ export default Ember.Component.extend({
   sql: Ember.computed('indicators.[]', function() {
     const indicators = this.get('indicators').join(',');
 
-    return `SELECT ${indicators}, 
+    return `SELECT ${indicators},
       CASE
         WHEN LEFT(borocd::text, 1) = '1' THEN 'Manhattan ' || borocd %25 100
         WHEN LEFT(borocd::text, 1) = '2' THEN 'Bronx ' || borocd %25 100

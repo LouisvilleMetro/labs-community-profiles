@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from 'ember'; // eslint-disable-line
 import SetMapBounds from '../mixins/set-map-bounds';
 import ScrollToTop from '../mixins/scroll-to-top';
 

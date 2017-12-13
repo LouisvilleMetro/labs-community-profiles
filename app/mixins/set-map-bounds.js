@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from 'ember'; // eslint-disable-line
 import bbox from 'npm:@turf/bbox'; // eslint-disable-line
 import toGeojson from '../utils/to-geojson';
 

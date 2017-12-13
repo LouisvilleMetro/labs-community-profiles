@@ -1,16 +1,14 @@
-import Ember from 'ember';
-import Resolver from './resolver';
+import Ember from 'ember'; // eslint-disable-line
 import loadInitializers from 'ember-load-initializers';
-import config from './config/environment';
-
-let App;
+import Resolver from './resolver';
+import config from './config/environment'; //eslint-disable-line
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
-App = Ember.Application.extend({
+const App = Ember.Application.extend({
   modulePrefix: config.modulePrefix,
   podModulePrefix: config.podModulePrefix,
-  Resolver
+  Resolver,
 });
 
 loadInitializers(App, config.modulePrefix);

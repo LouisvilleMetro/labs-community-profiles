@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Ember from 'ember'; // eslint-disable-line
 
 export default Ember.Mixin.create({
-  activate: function() {
+  activate() {
     this._super();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   },
 });

@@ -1,6 +1,6 @@
 import Ember from 'ember'; // eslint-disable-line
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line
-import { computed } from 'ember-decorators/object';
+import { computed } from 'ember-decorators/object'; // eslint-disable-line
 import carto from '../utils/carto';
 
 const SQL = 'SELECT a.the_geom_webmercator, a.landuse, b.description, address FROM support_mappluto a LEFT JOIN support_landuse_lookup b ON a.landuse::integer = b.code';

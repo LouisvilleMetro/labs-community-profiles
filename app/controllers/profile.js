@@ -1,5 +1,5 @@
 import Ember from 'ember'; // eslint-disable-line
-import range from 'd3';
+import range from 'd3'; // eslint-disable-line
 
 export default Ember.Controller.extend({
   mapState: Ember.inject.service(),
@@ -22,9 +22,9 @@ export default Ember.Controller.extend({
   }),
   popDensity: Ember.computed('model', function() {
     const d = this.get('d');
-    const { pop_2010, area_sqmi } = d;
+    const { pop_2010, area_sqmi } = d; // eslint-disable-line
 
-    return pop_2010 / area_sqmi;
+    return pop_2010 / area_sqmi; // eslint-disable-line
   }),
   agePopDist: Ember.computed('model', function() {
     const d = this.get('d');

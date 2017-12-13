@@ -2,21 +2,19 @@ import Ember from 'ember'; // eslint-disable-line
 import { Promise } from 'rsvp';
 import ResizeAware from 'ember-resize/mixins/resize-aware'; // eslint-disable-line
 import numeral from 'numeral';
-import d3 from 'd3';
+import d3 from 'd3'; // eslint-disable-line
 
 export default Ember.Component.extend(ResizeAware, {
   init() {
     this._super(...arguments);
 
-    const numeral_format = this.get('numeral_format');
-    const percent = (number) => {
-      return numeral(number).format(numeral_format);
-    };
+    const numeralFormat = this.get('numeralFormat');
+    const percent = number => numeral(number).format(numeralFormat);
     const defaultTooltip = (d, current) => {
       const selected = current || d;
-      const percent = this.get('percent');
-      const { column, overlayColumn, unit, moe } = this.getProperties('column', 'overlayColumn', 'unit', 'moe');
-      return `${selected.boro_district}: <strong>${percent(selected[column])}${unit}</strong><span class='moe-text'>${moe ? `(± ${percent(selected[moe])}${unit})` : ''}</span>`;
+      const pct = this.get('percent');
+      const { column, unit, moe } = this.getProperties('column', 'overlayColumn', 'unit', 'moe');
+      return `${selected.boro_district}: <strong>${pct(selected[column])}${unit}</strong><span class='moe-text'>${moe ? `(± ${pct(selected[moe])}${unit})` : ''}</span>`;
     };
     const tooltip = this.get('tooltip') || defaultTooltip;
 
@@ -36,7 +34,7 @@ export default Ember.Component.extend(ResizeAware, {
   rank: 0,
   ranked: null,
   unit: '',
-  numeral_format: '0.0',
+  numeralFormat: '0.0',
 
   colors: {
     gray: '#a8a8a8',
@@ -60,25 +58,25 @@ export default Ember.Component.extend(ResizeAware, {
     const height = this.get('height') - margin.top - margin.bottom;
     const width = elWidth - margin.left - margin.right;
 
-    let svg = d3.select(el.get(0))
+    const svg = d3.select(el.get(0))
       .append('svg')
       .attr('class', 'chart')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom);
 
-    let bars = svg.append('g')
+    const bars = svg.append('g')
       .attr('class', 'bars');
 
-    let curr = svg.append('g')
+    const curr = svg.append('g')
       .attr('class', 'curr');
 
-    let moes = svg.append('g')
+    const moes = svg.append('g')
       .attr('class', 'moes');
 
-    let masks = svg.append('g')
+    const masks = svg.append('g')
       .attr('class', 'masks');
 
-    let div = d3.select(el.get(0))
+    const div = d3.select(el.get(0))
       .append('div')
       .attr('class', 'tooltip')
       .attr('style', 'opacity: 1;');
@@ -93,7 +91,7 @@ export default Ember.Component.extend(ResizeAware, {
     this._super(...arguments);
   },
 
-  debouncedDidResize(width, height, evt) {
+  debouncedDidResize() {
     this.didRender();
   },
 
@@ -108,9 +106,8 @@ export default Ember.Component.extend(ResizeAware, {
     const overlayColumn = this.get('overlayColumn');
     const moe = this.get('moe');
     const rank = data.findIndex(d => d.is_selected);
-    const unit = this.get('unit');
     const current = data[rank];
-    if(!data[0][column]) return;
+    if (!data[0][column]) return;
 
     const { svg, div, bars, masks, moes, curr } =
       this.getProperties('svg', 'div', 'bars', 'masks', 'moes', 'curr');
@@ -132,23 +129,17 @@ export default Ember.Component.extend(ResizeAware, {
       .range([0, height]);
 
     const moeColor = '#6eceff';
-    const numeral_format = this.get('numeral_format');
+    const colors = d => (d.is_selected ? colorsHash.web_safe_orange : colorsHash.gray);
 
-    const colors = (d) => {
-      return d.is_selected ? colorsHash.web_safe_orange : colorsHash.gray;
-    };
+    const currColors = d => (d.is_selected ? colorsHash.web_safe_orange : colorsHash.curr);
 
-    const currColors = (d) => {
-      return d.is_selected ? colorsHash.web_safe_orange : colorsHash.curr;
-    };
-
-    const calculateMidpoint = (node) => {
+    const calculateMidpoint = (node) => { // eslint-disable-line
       return (node.getBoundingClientRect().width / 2) - Math.floor((x.bandwidth() / 2));
     };
 
     const tooltipTemplate = this.get('tooltip').bind(this, current);
 
-    const handleMouseOver = (d, i) => {
+    const handleMouseOver = (d) => {
       const selector = `.bar-${d.borocd}`;
       const overlay = `.bar-curr-${d.borocd}`;
 
@@ -162,7 +153,7 @@ export default Ember.Component.extend(ResizeAware, {
 
       div
         .html(function() {
-          return tooltipTemplate(d)
+          return tooltipTemplate(d);
         })
         .attr('style', function() {
           const midpoint = calculateMidpoint(this);
@@ -170,15 +161,15 @@ export default Ember.Component.extend(ResizeAware, {
         });
     };
 
-    const handleMouseOut = (d, i) => {
+    const handleMouseOut = (d) => {
       const selector = `.bar-${d.borocd}`;
       const overlay = `.bar-curr-${d.borocd}`;
 
       svg.select(selector)
         .transition()
         .duration(10)
-        .attr('fill', function (d) {
-          return d.is_selected ? colorsHash.web_safe_orange : colorsHash.gray;
+        .attr('fill', function (s) {
+          return s.is_selected ? colorsHash.web_safe_orange : colorsHash.gray;
         });
 
       svg.select(overlay)
@@ -227,7 +218,7 @@ export default Ember.Component.extend(ResizeAware, {
       .attr('class', (d, i) => `bar bar-${d.borocd} bar-index-${i}`)
       .attr('fill', colors)
       .attr('y', d => height - y(d[column]))
-      .attr('width', d => x.bandwidth() - 2)
+      .attr('width', () => x.bandwidth() - 2)
       .attr('x', d => x(d.borocd))
       .attr('height', d => y(d[column]));
 
@@ -242,7 +233,7 @@ export default Ember.Component.extend(ResizeAware, {
       .on('mouseover', handleMouseOver)
       .on('mouseout', handleMouseOut);
 
-    if(overlayColumn) {
+    if (overlayColumn) {
       theseCurr
         .attr('fill', currColors)
         .attr('width', () => x.bandwidth() - 2)
@@ -254,12 +245,12 @@ export default Ember.Component.extend(ResizeAware, {
         .attr('fill', currColors)
         .attr('style', 'pointer-events: none;')
         .attr('y', d => height - y(d[overlayColumn]))
-        .attr('width', d => x.bandwidth() - 2)
+        .attr('width', () => x.bandwidth() - 2)
         .attr('x', d => x(d.borocd))
         .attr('height', d => y(d[overlayColumn]));
     }
 
-    if(moe) {
+    if (moe) {
       theseMoes
         .attr('fill', moeColor)
         .attr('width', () => x.bandwidth() - 2)
@@ -271,7 +262,7 @@ export default Ember.Component.extend(ResizeAware, {
         .style('opacity', '0.5')
         .attr('fill', moeColor)
         .attr('y', d => height - (y(d[column]) + y(d[moe])))
-        .attr('width', d => x.bandwidth() - 2)
+        .attr('width', () => x.bandwidth() - 2)
         .attr('x', d => x(d.borocd))
         .attr('height', d => y(d[moe]) * 2);
     }

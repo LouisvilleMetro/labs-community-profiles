@@ -1,6 +1,5 @@
-import Ember from 'ember';
-import d3 from 'd3';
-import { ChildMixin } from 'ember-composability-tools';
+import Ember from 'ember'; // eslint-disable-line
+import d3 from 'd3'; // eslint-disable-line
 
 const { computed } = Ember;
 
@@ -13,11 +12,9 @@ export default Ember.Component.extend({
 
   sortedData: computed('data', 'borocd', function() {
     const borocd = this.get('borocd');
-    return this.get('data').then(data => {
-      return data.sortBy(`${this.get('column')}`).reverse().map(d => {
-        d.is_selected = (borocd === d.borocd) ? true : false;
-        return d;
-      });
-    });
+    return this.get('data').then(data => data.sortBy(`${this.get('column')}`).reverse().map((d) => {
+      d.is_selected = (borocd === d.borocd); // eslint-disable-line
+      return d;
+    }));
   }),
 });

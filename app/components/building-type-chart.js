@@ -8,8 +8,8 @@ function getColor(group) {
     'Small Apartments (<= 5 units, < 5 stories)': '#f7d496',
     'Large Apartments (> 5 units, 5-plus stories)': '#ea6661',
     'Mixed-use Apartments': '#FF9900',
-    'Commercial': '#f7cabf',
-    'Manufacturing': '#d36ff4',
+    Commercial: '#f7cabf',
+    Manufacturing: '#d36ff4',
     'Public Facilities, Institutions, Other': '#5CA2D1',
   };
 

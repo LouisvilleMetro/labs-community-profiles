@@ -10,7 +10,7 @@ const LandUseChart = Ember.Component.extend(ResizeAware, {
   data: Ember.computed('sql', 'borocd', function() {
     const borocd = this.get('borocd');
     const datasetName = this.get('datasetName');
-    
+
     return githubraw(datasetName, borocd);
   }),
 });

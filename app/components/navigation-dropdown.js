@@ -1,5 +1,4 @@
-import Ember from 'ember';
-import { Promise } from 'rsvp';
+import Ember from 'ember'; // eslint-disable-line
 import { task, timeout } from 'ember-concurrency';
 
 const DEBOUNCE_MS = 250;
@@ -12,7 +11,7 @@ export default Ember.Component.extend({
     const districts = this.get('model');
     const addressesPromise = this.get('addresses');
     const stream = Ember.A();
-    return addressesPromise.then(addresses => {
+    return addressesPromise.then((addresses) => {
       const districtAddresses =
         addresses.filter(addy => addy.get('locality') === 'New York');
 
@@ -27,15 +26,15 @@ export default Ember.Component.extend({
     const terms = this.get('searchTerms') || {};
 
     return this.get('store').query('address', terms)
-      .then(addresses => {
-        return addresses;
-      });
+      .then(addresses => addresses);
   }),
   debounceTerms: task(function* (terms) {
     if (Ember.isBlank(terms)) { return []; }
 
     yield timeout(DEBOUNCE_MS);
     yield this.set('searchTerms', terms);
+
+    return null;
   }).restartable(),
   actions: {
     handleSearch(terms, dropdownState) {
@@ -45,4 +44,3 @@ export default Ember.Component.extend({
     },
   },
 });
-

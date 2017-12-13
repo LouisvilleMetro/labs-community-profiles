@@ -98,7 +98,7 @@ const HorizontalBar = Ember.Component.extend(ResizeAware, {
       barLabels.transition().duration(300)
         .attr('x', d => x(d.value) + 6)
         .attr('y', d => y(d.group) + (y.bandwidth() / 2) + -2)
-        .text(d => barLabel ? `${numeral(d.value).format('0,0')}` : '');
+        .text(d => (barLabel ? `${numeral(d.value).format('0,0')}` : ''));
 
       barLabels.exit().remove();
 

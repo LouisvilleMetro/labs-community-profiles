@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from 'ember'; // eslint-disable-line
 import RankingChart from '../components/ranking-chart';
 import carto from '../utils/carto';
 
@@ -9,7 +9,7 @@ export default RankingChart.extend({
     const denominator = selected[column];
     const numerator = selected[overlayColumn];
     const percent = this.get('percent');
-    return `${selected.boro_district}: <strong>${percent(numerator / denominator * 100)}%</strong> <span class='moe-text'>of ${this.get('unit') || 'buildings'} are in floodplain</span>`;
+    return `${selected.boro_district}: <strong>${percent((numerator / denominator) * 100)}%</strong> <span class='moe-text'>of ${this.get('unit') || 'buildings'} are in floodplain</span>`;
   },
   colors: {
     gray: '#dddddd',
@@ -35,11 +35,9 @@ export default RankingChart.extend({
   data: Ember.computed('sql', function() {
     const sql = this.get('sql');
     const borocd = this.get('borocd');
-    return carto.SQL(sql, 'json').then(data => {
-      return data.sortBy(this.get('overlayColumn')).reverse().map(d => {
-        d.is_selected = (borocd === d.borocd) ? true : false;
-        return d;
-      });
-    });
+    return carto.SQL(sql, 'json').then(data => data.sortBy(this.get('overlayColumn')).reverse().map((d) => {
+      d.is_selected = (borocd === d.borocd); // eslint-disable-line
+      return d;
+    }));
   }),
 });
