@@ -16,13 +16,10 @@ export default Component.extend({
     const districts = this.get('model');
     const addressesPromise = this.get('addresses');
     const stream = A();
-    return addressesPromise.then(addresses => {
-      const districtAddresses =
-        addresses.filter(addy => addy.get('locality') === 'New York');
-
+    return addressesPromise.then((addresses) => {
       stream
         .pushObjects(districts.toArray())
-        .pushObjects(districtAddresses.toArray());
+        .pushObjects(addresses.toArray());
 
       return stream;
     });
@@ -30,10 +27,7 @@ export default Component.extend({
   addresses: computed('searchTerms', function() {
     const terms = this.get('searchTerms') || {};
 
-    return this.get('store').query('address', terms)
-      .then(addresses => {
-        return addresses;
-      });
+    return this.get('store').query('address', terms);
   }),
   debounceTerms: task(function* (terms) {
     if (isBlank(terms)) { return []; }
@@ -49,4 +43,3 @@ export default Component.extend({
     },
   },
 });
-

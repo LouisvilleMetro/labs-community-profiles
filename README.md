@@ -50,9 +50,6 @@ Each profile has a model that pulls one row from the `community_district_profile
 
 ## Backend services
 
-- **mapzen api** - Description of this service
-- {Replace this list with the app's backend service dependencies.}
-
 ### carto
 Most of the data use by the app is stored in tables on the planninglabs carto instance.
 
@@ -71,8 +68,8 @@ Most of the data use by the app is stored in tables on the planninglabs carto in
 ### github static content
 - static JSON files for the zoning chart are accessed via the github raw files api using [https://github.com/NYCPlanning/labs-community-data](https://github.com/NYCPlanning/labs-community-data)
 
-### mapzen search API
-[Mapzen search](https://mapzen.com/products/search/geocoding/) is used for autocomplete address searching.  
+### GeoSearch API
+[GeoSearch](https://geosearch.planninglabs.nyc/) transforms input text—such as an address, or the name of a place—to authoritative New York City addresses using data from the Property Address Directory. 
 
 ### LUCATS Proxy
 A Proxy API that scrapes LUCATS in real-time and produces JSON for a community district's projects.  [https://github.com/NYCPlanning/labs-lucats-proxy](https://github.com/NYCPlanning/labs-lucats-proxy)
